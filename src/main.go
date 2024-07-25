@@ -1,4 +1,4 @@
-package main
+package src
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ func main() {
 	pages_to_search := []int{201, 202, 203, 204, 205}
 	input := take_unicode_input()
 	pages_in_order := search(input, pages_to_search)
-	to_display := open_page_number(pages_in_order[0].page_number)
+	to_display := Open_page_number(pages_in_order[0].page_number)
 	fmt.Println(to_display)
 }
 
@@ -22,7 +22,7 @@ type page_distance struct {
 	distance    int
 }
 
-func open_page_number(page_number int) string {
+func Open_page_number(page_number int) string {
 	filename := "page" + strconv.Itoa(page_number) + ".txt"
 	data, err := os.ReadFile(os.Getenv("HOME") + "/Desktop/punjabi_dictionary/sample_data/" + filename)
 	if err != nil {
@@ -43,7 +43,7 @@ func search(word string, pages_to_search []int) []page_distance {
 	var pages_in_order []page_distance
 	for i := 0; i < len(pages_to_search); i++ {
 		page_number := pages_to_search[i]
-		txt := open_page_number(page_number)
+		txt := Open_page_number(page_number)
 		dist := find_min_distance(word, txt)
 		pages_in_order = append(pages_in_order, page_distance{page_number, dist})
 	}
